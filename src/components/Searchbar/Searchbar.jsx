@@ -1,19 +1,12 @@
 import { Component } from 'react';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import {
-  Header,
-  Form,
-  FormButton,
-  FormButtonLabel,
-  Field,
-} from './Searchbar.styled';
+import { RiSearchLine } from 'react-icons/ri';
+import { Header, Form, FormButton, Field } from './Searchbar.styled';
 
 /* Схема валідації */
 const SearchSchema = Yup.object().shape({
-  searchText: Yup.string('Must be a string')
-    .max(50, 'Too Long!')
-    .required('Required'),
+  searchText: Yup.string('Must be a string').max(5, 'Too Long!'),
 });
 
 export class Searchbar extends Component {
@@ -32,7 +25,7 @@ export class Searchbar extends Component {
         >
           <Form>
             <FormButton type="submit">
-              <FormButtonLabel>Search</FormButtonLabel>
+              <RiSearchLine />
             </FormButton>
             <Field name="searchText" placeholder="Search images and photos" />
             <ErrorMessage name="searchText" component="div"></ErrorMessage>
