@@ -1,9 +1,15 @@
 import { Component } from 'react';
 import { createPortal } from 'react-dom';
 import { ModalWindow, Overlay } from './Modal.styled';
+import PropTypes from 'prop-types';
 const modalRoot = document.querySelector('#modal-root');
 
 export class Modal extends Component {
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    onClose: PropTypes.func.isRequired,
+  };
+
   componentDidMount() {
     /* Реєструємо прослуховувача події*/
     window.addEventListener('keydown', this.handleKeyDown);

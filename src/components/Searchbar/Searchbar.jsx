@@ -1,36 +1,53 @@
 import { Component } from 'react';
-import { Formik, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 import { RiSearchLine } from 'react-icons/ri';
 import { Header, Form, FormButton, Field } from './Searchbar.styled';
-
-/* Схема валідації */
-const SearchSchema = Yup.object().shape({
-  searchText: Yup.string('Must be a string').max(5, 'Too Long!'),
-});
+import toast, { Toaster } from 'react-hot-toast';
+import PropTypes from 'prop-types';
 
 export class Searchbar extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  };
+
+  state = {
+    searchText: '',
+  };
+
+  handleSearchText = e => {
+    this.setState({
+      searchText: e.currentTarget.value.toLowerCase().trim(),
+    });
+  };
+
+  onSubmit = e => {
+    e.preventDefault();
+    const { searchText } = this.state;
+    if (searchText === '') {
+      toast.error('Please enter text for search');
+      return;
+    }
+    this.props.onSubmit(searchText);
+    this.setState({ searchText: '' });
+  };
+
   render() {
-    const { onSubmit } = this.props;
+    const { searchText } = this.state;
 
     return (
       <Header>
-        <Formik
-          initialValues={{ searchText: '' }}
-          validationSchema={SearchSchema}
-          onSubmit={(values, actions) => {
-            onSubmit(values);
-            //actions.resetForm();
-          }}
-        >
-          <Form>
-            <FormButton type="submit">
-              <RiSearchLine />
-            </FormButton>
-            <Field name="searchText" placeholder="Search images and photos" />
-            <ErrorMessage name="searchText" component="div"></ErrorMessage>
-          </Form>
-        </Formik>
+        <Form onSubmit={this.onSubmit}>
+          <FormButton type="submit">
+            <RiSearchLine />
+          </FormButton>
+          <Field
+            type="text"
+            name="searchText"
+            value={searchText}
+            placeholder="Search images and photos"
+            onChange={this.handleSearchText}
+          />
+          <Toaster />
+        </Form>
       </Header>
     );
   }

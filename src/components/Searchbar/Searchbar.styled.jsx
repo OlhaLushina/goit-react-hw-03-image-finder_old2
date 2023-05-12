@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Form as FormStyled, Field as FieldStyled } from 'formik';
 
 export const Header = styled.header`
   top: 0;
@@ -21,7 +20,7 @@ export const Header = styled.header`
     background
 `;
 
-export const Form = styled(FormStyled)`
+export const Form = styled.form`
   display: flex;
   align-items: center;
   width: 100%;
@@ -62,7 +61,7 @@ export const FormButtonLabel = styled.span`
   border: 0;
 `;
 
-export const Field = styled(FieldStyled)`
+export const Field = styled.input`
   display: inline-block;
   width: 100%;
   font: inherit;
