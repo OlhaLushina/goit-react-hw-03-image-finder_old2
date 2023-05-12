@@ -1,4 +1,5 @@
 import { App as AppStyled } from 'components/App/App';
+import styled from 'styled-components';
 
 const App = styled(AppStyled)`
   display: grid;
